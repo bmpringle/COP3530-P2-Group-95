@@ -1,5 +1,8 @@
+import os
 from tkinter import ttk
 import tkinter as tk
+import numpy as np
+currentValue = 'N/A'
 
 algorithms = ['Algorithm 1', 'Algorithm 2', 'Algorithm 3', 'Algorithm 4']
 def setup_gui_and_events(window: tk):
@@ -10,9 +13,11 @@ def setup_gui_and_events(window: tk):
     #First tab.
     tab1 = tk.Frame(tabMaster)
     tabMaster.add(tab1, text='Select Dataset')
-    tk.Label(tab1, text="Search Dataset For: ").grid(row=0, column=0)
-    entry1 = tk.Entry(tab1)
-    entry1.grid(row=0, column=1)
+    tk.Label(tab1, text="Current Filepath: ").grid(row=0, column=0)
+    currentPathVar = tk.StringVar()
+    currentPathVar.set(os.path.expanduser('~'))
+    currentPath = (tk.Entry(tab1, textvariable=currentPathVar))
+    currentPath.grid(row=0, column=1)
     #Second tab.
     tab2 = tk.Frame(tabMaster)
     tabMaster.add(tab2, text='Select Algorithm')
@@ -30,5 +35,4 @@ def setup_gui_and_events(window: tk):
     tabMaster.add(tab3, text='Analyze Results')
     #Continue setup.
     tabMaster.pack(expand=1, fill='both')
-
 
