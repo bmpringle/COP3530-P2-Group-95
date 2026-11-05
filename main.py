@@ -1,10 +1,10 @@
-from tkinter import Tk
+import tkinter as tk
 
 from gui import setup_gui_and_events
 
 
 def main():
-    window = Tk(
+    window = tk.Tk(
         screenName=" Project 2 - Electric Utility Optimizer",
         baseName=" Project 2 - Electric Utility Optimizer",
         className=" Project 2 - Electric Utility Optimizer",
