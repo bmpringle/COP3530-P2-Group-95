@@ -1,6 +1,9 @@
 import os
 from tkinter import ttk
 import tkinter as tk
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
+NavigationToolbar2Tk)
 import numpy as np
 currentValue = 'N/A'
 #Change data format once we're certain of how to input it.
@@ -44,6 +47,7 @@ def setup_gui_and_events(window: tk):
             enterer = tk.Entry(tab3, width=20, fg='black', font=('Arial', 16, 'bold'))
             enterer.grid(row=i, column=j)
             enterer.insert(tk.END, input[i][j])
+
 
 
 
