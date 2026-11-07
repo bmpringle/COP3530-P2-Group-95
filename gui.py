@@ -3,6 +3,10 @@ from tkinter import ttk
 import tkinter as tk
 import numpy as np
 currentValue = 'N/A'
+#Change data format once we're certain of how to input it.
+numRows = 4
+numCols = 2
+input = [('N/A', 'N/A'), ('N/A', 'N/A'), ('N/A', 'N/A'), ('N/A', 'N/A')]
 
 algorithms = ['Algorithm 1', 'Algorithm 2', 'Algorithm 3', 'Algorithm 4']
 def setup_gui_and_events(window: tk):
@@ -35,4 +39,11 @@ def setup_gui_and_events(window: tk):
     tabMaster.add(tab3, text='Analyze Results')
     #Continue setup.
     tabMaster.pack(expand=1, fill='both')
+    for i in range(numRows):
+        for j in range(numCols):
+            enterer = tk.Entry(tab3, width=20, fg='black', font=('Arial', 16, 'bold'))
+            enterer.grid(row=i, column=j)
+            enterer.insert(tk.END, input[i][j])
+
+
 
