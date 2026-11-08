@@ -4,12 +4,24 @@ import tkinter as tk
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
 NavigationToolbar2Tk)
+import matplotlib.pyplot as plt
 import numpy as np
 currentValue = 'N/A'
+
 #Change data format once we're certain of how to input it.
+
+#For table.
 numRows = 4
 numCols = 2
 input = [('N/A', 'N/A'), ('N/A', 'N/A'), ('N/A', 'N/A'), ('N/A', 'N/A')]
+#For bar graph.
+categories = ['a1', 'a2', 'a3', 'a4', 'a5', 'e6', 'e5,', 'e4']
+values = {
+    'Type 1': (10, 20, 50, 60, 60, 60, 60, 50),
+    'Type 2': (5, 30, 60, 50, 50, 50, 50, 50),
+    'Type 3': (2, 56, 43, 40, 40, 40, 40, 40),
+}
+title = 'Example Title'
 
 algorithms = ['Algorithm 1', 'Algorithm 2', 'Algorithm 3', 'Algorithm 4']
 def setup_gui_and_events(window: tk):
@@ -39,15 +51,34 @@ def setup_gui_and_events(window: tk):
     scroller.config(command=lister.yview)
     #Third tab.
     tab3 = tk.Frame(tabMaster)
-    tabMaster.add(tab3, text='Analyze Results')
-    #Continue setup.
-    tabMaster.pack(expand=1, fill='both')
+    tabMaster.add(tab3, text='Results As Table')
     for i in range(numRows):
         for j in range(numCols):
             enterer = tk.Entry(tab3, width=20, fg='black', font=('Arial', 16, 'bold'))
             enterer.grid(row=i, column=j)
             enterer.insert(tk.END, input[i][j])
+    #Fourth tab.
+    tab4 = tk.Frame(tabMaster)
+    tabMaster.add(tab4, text='Results As Graph')
 
+    colors = ['#4477AA', '#EE6677', '#228833', '#CCBB44', '#66CCEE']
+    figurer, axiser = plt.subplots(layout='tight')
+    figurer.dpi = 100;
+    figurer.figsize = (20, 20)
+    res = axiser.grouped_bar(values, tick_labels=categories, group_spacing=1)
+    for container in res.bar_containers:
+        axiser.bar_label(container, padding=3)
+
+    # Add some text for labels, title, etc.
+    axiser.set_ylabel('Dollars, USD')
+    axiser.set_title(title)
+    axiser.legend(loc='upper left', ncols=3)
+    canvaser = FigureCanvasTkAgg(figurer, master=tab4)
+    widgeter = canvaser.get_tk_widget()
+    widgeter.grid(column=0, row=numRows+1)
+    canvaser.draw()
+    #Continue setup.
+    tabMaster.pack(expand=1, fill='both')
 
 
 
