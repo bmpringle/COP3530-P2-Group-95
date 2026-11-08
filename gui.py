@@ -13,6 +13,8 @@ currentValue = 'N/A'
 #For table.
 numRows = 4
 numCols = 2
+labelsSide = ['element1', 'element2', 'element3', 'element4']
+labelsTop = ['element1', 'element2']
 input = [('N/A', 'N/A'), ('N/A', 'N/A'), ('N/A', 'N/A'), ('N/A', 'N/A')]
 #For bar graph.
 categories = ['a1', 'a2', 'a3', 'a4', 'a5', 'e6', 'e5,', 'e4']
@@ -52,11 +54,23 @@ def setup_gui_and_events(window: tk):
     #Third tab.
     tab3 = tk.Frame(tabMaster)
     tabMaster.add(tab3, text='Results As Table')
-    for i in range(numRows):
-        for j in range(numCols):
+    for i in range(numRows + 1):
+        for j in range(numCols + 1):
+            if i == 0 and j == 0:
+                continue
+            if i == 0:
+                labeler = tk.Entry(tab3, width=20, fg='black', font=('Arial', 16, 'bold'))
+                labeler.grid(row=i, column=j)
+                labeler.insert(tk.END, labelsTop[j-1])
+                continue
+            if j == 0:
+                labeler = tk.Entry(tab3, width=20, fg='black', font=('Arial', 16, 'bold'))
+                labeler.grid(row=i, column=j)
+                labeler.insert(tk.END, labelsSide[i-1])
+                continue
             enterer = tk.Entry(tab3, width=20, fg='black', font=('Arial', 16, 'bold'))
             enterer.grid(row=i, column=j)
-            enterer.insert(tk.END, input[i][j])
+            enterer.insert(tk.END, input[i - 1][j - 1])
     #Fourth tab.
     tab4 = tk.Frame(tabMaster)
     tabMaster.add(tab4, text='Results As Graph')
