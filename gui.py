@@ -21,16 +21,6 @@ numCols = 2
 labelsSide = ["element1", "element2", "element3", "element4"]
 labelsTop = ["element1", "element2"]
 input = [("N/A", "N/A"), ("N/A", "N/A"), ("N/A", "N/A"), ("N/A", "N/A")]
-# For bar graph.
-categories = ["a1", "a2", "a3", "a4", "a5", "e6", "e5,", "e4"]
-values = {
-    "Type 1": (10, 20, 50, 60, 60, 60, 60, 50),
-    "Type 2": (5, 30, 60, 50, 50, 50, 50, 50),
-    "Type 3": (2, 56, 43, 40, 40, 40, 40, 40),
-}
-title = "Example Title"
-
-algorithms = ["Algorithm 1", "Algorithm 2", "Algorithm 3", "Algorithm 4"]
 
 
 def setup_dataset_tab(notebook: ttk.Notebook):
@@ -99,7 +89,6 @@ def setup_table_results_tab(notebook: ttk.Notebook):
 def setup_graph_results_tab(notebook: ttk.Notebook):
     frame = tk.Frame(notebook, name="results_graph")
     notebook.add(frame, text="Results (Graph)", state="disabled")
-    return
 
 
 def setup_gui_and_events(window: tk.Tk):
