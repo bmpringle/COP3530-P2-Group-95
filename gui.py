@@ -13,9 +13,7 @@ from events import (
 
 currentValue = "N/A"
 
-# Change data format once we're certain of how to input it.
 
-# For table.
 numRows = 4
 numCols = 2
 labelsSide = ["element1", "element2", "element3", "element4"]
@@ -48,6 +46,7 @@ def setup_algorithm_tab(notebook: ttk.Notebook):
     lister = tk.Listbox(frame)
 
     lister.insert(tk.END, "Historical ROI Algorithm")
+    lister.insert(tk.END, "DP Budget Allocation")
 
     button = tk.Button(
         frame,
