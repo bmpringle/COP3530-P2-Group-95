@@ -4,11 +4,12 @@ from functools import partial
 from tkinter import ttk
 
 import matplotlib.pyplot as plt
+import pandas as pd
 from events import (
     browse_for_dataset,
+    on_notebook_tab_changed,
     run_selected_algorithm,
 )
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 currentValue = "N/A"
 
@@ -56,7 +57,6 @@ def setup_algorithm_tab(notebook: ttk.Notebook):
 
     lister = tk.Listbox(frame)
 
-    # TODO: Insert Algorithm Names Here
     lister.insert(tk.END, "Historical ROI Algorithm")
 
     button = tk.Button(
@@ -97,25 +97,9 @@ def setup_table_results_tab(notebook: ttk.Notebook):
 
 
 def setup_graph_results_tab(notebook: ttk.Notebook):
-    tab4 = tk.Frame(notebook, name="results_graph")
-    notebook.add(tab4, text="Results (Graph)", state="disabled")
-
-    colors = ["#4477AA", "#EE6677", "#228833", "#CCBB44", "#66CCEE"]
-    figurer, axiser = plt.subplots(layout="tight")
-    figurer.dpi = 100
-    figurer.figsize = (20, 20)
-    res = axiser.grouped_bar(values, tick_labels=categories, group_spacing=1)
-    for container in res.bar_containers:
-        axiser.bar_label(container, padding=3)
-
-    # Add some text for labels, title, etc.
-    axiser.set_ylabel("Dollars, USD")
-    axiser.set_title(title)
-    axiser.legend(loc="upper left", ncols=3)
-    canvaser = FigureCanvasTkAgg(figurer, master=tab4)
-    widgeter = canvaser.get_tk_widget()
-    widgeter.grid(column=0, row=numRows + 1)
-    canvaser.draw()
+    frame = tk.Frame(notebook, name="results_graph")
+    notebook.add(frame, text="Results (Graph)", state="disabled")
+    return
 
 
 def setup_gui_and_events(window: tk.Tk):
@@ -125,5 +109,7 @@ def setup_gui_and_events(window: tk.Tk):
     setup_algorithm_tab(notebook)
     setup_table_results_tab(notebook)
     setup_graph_results_tab(notebook)
+
+    notebook.bind("<<NotebookTabChanged>>", on_notebook_tab_changed)
 
     notebook.pack(expand=1, fill="both")

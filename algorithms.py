@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 
-def historical_roi_algorithm(data) -> pd.Dataframe | None:
+def historical_roi_algorithm(data) -> pd.DataFrame | None:
     investment_budget = simpledialog.askfloat(
         "Investment Budget",
         "What is your investment budget for generating power? (In USD)",
@@ -17,10 +17,10 @@ def historical_roi_algorithm(data) -> pd.Dataframe | None:
         "Cost to Generate", "At what cost will you produce power? (In USD / MWh)"
     )
 
-    if not investment_budget or not cost_to_generate:
+    if not investment_budget or not cost_to_generate or not cost_to_build:
         return None
 
-    if cost_to_generate <= 0 or investment_budget <= 0:
+    if cost_to_generate <= 0 or investment_budget <= 0 or cost_to_build <= 0:
         return None
 
     state_list = data["Utility.State"].unique()
@@ -52,11 +52,10 @@ def historical_roi_algorithm(data) -> pd.Dataframe | None:
     years_to_payback = investment_budget / profit_per_state
 
     results_names = [
-        "Margin (USD / MWh)",
-        "Profit (USD)",
-        "Market % (Capacity / All Sales in State)",
-        "ROI per Year (% Investment Returned / Year)",
-        "Years to Payback on Investment (Years)",
+        "Margin",
+        "Market %",
+        "ROI",
+        "Years to Payback on Investment",
     ]
 
     results = pd.concat(
@@ -64,7 +63,6 @@ def historical_roi_algorithm(data) -> pd.Dataframe | None:
             df.T
             for df in [
                 margin_per_state,
-                profit_per_state,
                 market_percent,
                 roi_per_year,
                 years_to_payback,
