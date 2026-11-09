@@ -78,3 +78,47 @@ def on_notebook_tab_changed(event):
         canvaser = FigureCanvasTkAgg(figurer, master=frame_graph)
         canvaser.draw()
         canvaser.get_tk_widget().pack()
+    if event.widget.select() == ".!notebook.results_table":
+        frame_alg = event.widget.nametowidget(".!notebook.algorithm")
+        results = frame_alg.results
+
+        frame_table = event.widget.nametowidget(".!notebook.results_table")
+
+        # Create a canvas, a scrollbar for the canvas, link them together, and then create an inner view bound to the canvas for the table.
+        # This allows the table to have vertical scrolling, otherwise there wouldn't be enough room for all the rows.
+        canvas = tk.Canvas(frame_table)
+        canvas.pack(side="left", fill="both", expand=True)
+
+        scrollbar = ttk.Scrollbar(frame_table, orient="vertical", command=canvas.yview)
+        scrollbar.pack(side="right", fill="y")
+        canvas.config(yscrollcommand=scrollbar.set)
+
+        inner_frame = tk.Frame(canvas)
+        canvas.create_window((0, 0), window=inner_frame, anchor="nw")
+        inner_frame.bind(
+            "<Configure>", lambda _: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
+
+        for i in range(results.shape[0] + 1):
+            for j in range(results.shape[1] + 1):
+                if i == 0 and j == 0:
+                    continue
+                if i == 0:
+                    labeler = tk.Entry(
+                        inner_frame, width=20, fg="black", font=("Arial", 16, "bold")
+                    )
+                    labeler.grid(row=i, column=j)
+                    labeler.insert(tk.END, results.columns[j - 1])
+                    continue
+                if j == 0:
+                    labeler = tk.Entry(
+                        inner_frame, width=20, fg="black", font=("Arial", 16, "bold")
+                    )
+                    labeler.grid(row=i, column=j)
+                    labeler.insert(tk.END, f"{i}")
+                    continue
+                enterer = tk.Entry(
+                    inner_frame, width=20, fg="black", font=("Arial", 16, "bold")
+                )
+                enterer.grid(row=i, column=j)
+                enterer.insert(tk.END, results.iat[i - 1, j - 1])

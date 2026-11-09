@@ -61,29 +61,8 @@ def setup_algorithm_tab(notebook: ttk.Notebook):
 
 
 def setup_table_results_tab(notebook: ttk.Notebook):
-    tab3 = tk.Frame(notebook, name="results_table")
-    notebook.add(tab3, text="Results (Table)", state="disabled")
-    for i in range(numRows + 1):
-        for j in range(numCols + 1):
-            if i == 0 and j == 0:
-                continue
-            if i == 0:
-                labeler = tk.Entry(
-                    tab3, width=20, fg="black", font=("Arial", 16, "bold")
-                )
-                labeler.grid(row=i, column=j)
-                labeler.insert(tk.END, labelsTop[j - 1])
-                continue
-            if j == 0:
-                labeler = tk.Entry(
-                    tab3, width=20, fg="black", font=("Arial", 16, "bold")
-                )
-                labeler.grid(row=i, column=j)
-                labeler.insert(tk.END, labelsSide[i - 1])
-                continue
-            enterer = tk.Entry(tab3, width=20, fg="black", font=("Arial", 16, "bold"))
-            enterer.grid(row=i, column=j)
-            enterer.insert(tk.END, input[i - 1][j - 1])
+    frame = tk.Frame(notebook, name="results_table")
+    notebook.add(frame, text="Results (Table)", state="disabled")
 
 
 def setup_graph_results_tab(notebook: ttk.Notebook):
