@@ -70,7 +70,7 @@ def on_notebook_tab_changed(event):
         columns = list(results.columns)
         columns.remove("State")
         results = results.sort_values(by="ROI")
-        results[:5].plot.bar(x="State", y=columns, ax=axiser)
+        results[-5:].plot.bar(x="State", y=columns, ax=axiser)
 
         for container in axiser.containers:
             axiser.bar_label(container, fmt="%.3f")

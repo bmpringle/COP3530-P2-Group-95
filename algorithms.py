@@ -52,7 +52,6 @@ def historical_roi_algorithm(data) -> pd.DataFrame | None:
     years_to_payback = investment_budget / profit_per_state
 
     results_names = [
-        "Margin",
         "Market %",
         "ROI",
         "Years to Payback on Investment",
@@ -62,7 +61,6 @@ def historical_roi_algorithm(data) -> pd.DataFrame | None:
         [
             df.T
             for df in [
-                margin_per_state,
                 market_percent,
                 roi_per_year,
                 years_to_payback,
