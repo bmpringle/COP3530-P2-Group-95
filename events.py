@@ -4,6 +4,7 @@ from tkinter import filedialog, messagebox, ttk
 import matplotlib.pyplot as plt
 import pandas
 from algorithms import historical_roi_algorithm
+from dp_algorithm import dp_budget_algorithm
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
@@ -46,6 +47,8 @@ def run_selected_algorithm(notebook, listbox):
     results = None
     if selected_algorithm == "Historical ROI Algorithm":
         results = historical_roi_algorithm(data)
+    elif selected_algorithm == "DP Budget Allocation":
+        results = dp_budget_algorithm(data)
 
     if not isinstance(results, pandas.DataFrame):
         return
